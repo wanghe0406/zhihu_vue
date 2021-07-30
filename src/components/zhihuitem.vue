@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-21 08:17:25
- * @LastEditTime: 2021-07-30 14:31:57
+ * @LastEditTime: 2021-07-30 17:34:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue\src\components\record.vue
@@ -121,6 +121,15 @@ export default {
     };
   },
   computed: {},
+  created(){
+    this.$axios.get("http://localhost:3000/list")
+    .then(res => {
+      console.log(res.data)
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  },
   /* 展开全文收起 */
   filters: {
     ellipsis: function (value, len, key) {
