@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-21 08:17:25
- * @LastEditTime: 2021-07-30 14:51:40
+ * @LastEditTime: 2021-08-02 09:03:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue\src\components\unrecord.vue
@@ -199,6 +199,7 @@
       <!-- 右侧侧缩放 -->
       <div class="right_vacancy"></div>
     </div>
+   <!--  <button @click="getone()">get请求</button> -->
     <!-- 会员功能 -->
     <div v-show="headerstatustwo"><p>会员功能待开发</p></div>
     <!-- 发现 -->
@@ -238,6 +239,15 @@ export default {
     window.addEventListener("scroll", this.scrollfixed, true);
   },
   methods: {
+    getone(){
+    this.$axios.get("http://localhost:3000/list?title=时代周刊06年风度人物")
+    .then(res => {
+      console.log(res.data)
+    })
+    .catch(error => {
+      console.log(error);
+    })
+    },
     // 点击图片回到顶部方法，加计时器是为了过渡顺滑
     backTop() {
       const that = this;
@@ -279,6 +289,7 @@ export default {
         that.fixflag = false;
       }
     },
+    /* header上下滑动 */
     handleScroll() {
       // 监听鼠标滚动
       // 页面滚动距顶部距离
@@ -287,13 +298,14 @@ export default {
         document.documentElement.scrollTop ||
         document.body.scrollTop;
       var scroll = scrollTop - this.i;
-      this.i = scrollTop;
+       this.i = scrollTop;
       if (scroll < 0) {
         this.ismouse = true;
       } else {
         this.ismouse = false;
       }
     },
+    /* 页面点击切换 */
     isclickheader() {
       this.headerstatus = true;
       this.headerstatustwo = false;

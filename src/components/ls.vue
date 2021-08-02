@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-21 08:17:25
- * @LastEditTime: 2021-08-02 08:20:22
+ * @LastEditTime: 2021-07-30 17:34:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue\src\components\record.vue
@@ -24,8 +24,7 @@
             阅读全文
           </li>
         </ul>
-
-        <ul class="secondul" ref="toplength">
+        <ul class="secondul">
           <li :class="item.isapprove ? 'btnone' : 'big_btnnone '">
             <button @click="approvebtn(key)">
               <i :class="item.isapprove ? 'shang' : 'shang_white '"></i
@@ -180,7 +179,6 @@ export default {
           islove: false, //是否喜欢
           isapprove: true, //赞同
           isnoapprove: true,
-          /* 评论列表 */
           commentlist: [
             {
               sontime: "07-26",
@@ -238,7 +236,7 @@ export default {
   },
   computed: {},
   mounted(){
-    window.addEventListener("scroll", this.handlescrollTop);
+    setInterval(this.getnewtime,1000)
   },
   created() {
     this.$axios
@@ -328,20 +326,8 @@ export default {
     },
     //添加评论
     pushcommlist(key) {
-      this.list[key].commentlist.push({soncontent:this.commentcontent,sontime:'08-02'});
+      this.list[key].commentlist.push({soncontent:this.commentcontent,sontime:'08-10'});
       this.commentcontent = ''
-    },
-    /* 吸底 */
-    handlescrollTop(){
-      /* const that = this; */
-      var scrollTop =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop;
-      var offsetTop = this.$refs.toplength.scrollTop
-      var offsetHeight = this.$refs.toplength.offsetHeight
-      if(scrollTop < offsetTop + offsetHeight)
-      console.log("offsetTop:" + this.offsetTop + "," + this.offsetHeight);
     }
   }
 };

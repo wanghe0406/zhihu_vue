@@ -12,9 +12,12 @@ label {
 }
 
 body {
+  overflow: scroll;
+  overflow-x: hidden;
   background-color: #f6f6f6;
 }
 
+/* <body scroll="no"> */
 body,
 div,
 dl,
