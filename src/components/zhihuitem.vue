@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-21 08:17:25
- * @LastEditTime: 2021-08-02 08:20:22
+ * @LastEditTime: 2021-08-02 17:33:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue\src\components\record.vue
 -->
 <template>
   <div>
-    <div class="left_content_bottom" v-for="(item, key) in list" :key="key">
+    <div class="left_content_bottom" v-for="(item, key) in listtwo" :key="key">
       <div>
         <ul class="firstul">
           <li class="lione"><a href="">江小白&ensp;</a>回答了问题 • 1小时前</li>
@@ -24,8 +24,7 @@
             阅读全文
           </li>
         </ul>
-
-        <ul class="secondul" ref="toplength">
+        <ul class="secondul">
           <li :class="item.isapprove ? 'btnone' : 'big_btnnone '">
             <button @click="approvebtn(key)">
               <i :class="item.isapprove ? 'shang' : 'shang_white '"></i
@@ -43,7 +42,8 @@
           </button>
           <li>
             <button class="btncomm" @click="commentishide(key)">
-              <i class="iconfont icon-ziyuan"></i> {{ item.commentlist.length + 2 }} 条评论
+              <i class="iconfont icon-ziyuan"></i>
+              {{ item.commentlist.length + 2 }} 条评论
             </button>
           </li>
           <li>
@@ -59,7 +59,7 @@
           <li>
             <button class="btncomm" @click="islovebtn(key)">
               <i class="iconfont icon-xihuan"></i
-              >{{ item.islove ? "取消喜欢" : "喜欢" }}
+              >{{ item.islove ? "喜欢" : "取消喜欢" }}
             </button>
           </li>
           <li class="iconfont icon-gengduo juli"></li>
@@ -68,6 +68,7 @@
           </li>
         </ul>
       </div>
+      <div @click="www()">测试</div>
       <!-- 评论内容 -->
       <div class="comment" v-show="item.iscomment">
         <div class="comment_header">
@@ -136,7 +137,9 @@
             <div>
               <div class="comment_contentone">{{ lis.soncontent }}</div>
               <div class="comment_zan">
-                <span class="iconfont icon-zan"></span>&nbsp;<span>{{lis.zannum}}</span>
+                <span class="iconfont icon-zan"></span>&nbsp;<span>{{
+                  lis.zannum
+                }}</span>
                 <span class="comment_gn">
                   <span class="iconfont icon-icon_reply">回复</span>
                   <span class="iconfont icon-cai">踩</span>
@@ -154,7 +157,6 @@
           />
           <button @click="pushcommlist(key)">发布</button>
         </div>
-       <!--  <div>{{msg | getnewtime()}}</div> -->
       </div>
     </div>
   </div>
@@ -166,7 +168,8 @@ export default {
   data() {
     return {
       commentcontent: "",
-      msg:new Date().getTime(),
+      key: "",
+      msg: new Date().getTime(),
       list: [
         {
           title: "时代周刊06年风度人物",
@@ -176,21 +179,20 @@ export default {
           ishide: true, //展开
           isflag: true, //阅读全文收起
           endorsenum: 25, //点赞数
-          iscomment:false, //评论
-          islove: false, //是否喜欢
+          iscomment: false, //评论
+          islove: true, //是否喜欢
           isapprove: true, //赞同
           isnoapprove: true,
-          /* 评论列表 */
           commentlist: [
             {
               sontime: "07-26",
               soncontent: "你好呀",
-              zannum:''
+              zannum: "",
             },
             {
               sontime: "08-31",
               soncontent: "我好呀",
-              zannum:0
+              zannum: 0,
             },
           ],
         },
@@ -201,7 +203,7 @@ export default {
             "反问：你希望你的作品有一天可以搬上舞台演出吗？你是希望这一天早点来还是晚点来？等人长出第三只手，怕是万八千年都过了不知道多少轮了。当然，你完全可以不计成本，一个人来不了就两个人，但是以这个问题的思维，怕是会觉得人多起来了就不炫了，所以一个三只手的乐手，要比两个正常乐手要炫，那么两个乐手得弹六七只手的才行。",
           isflag: true, //阅读全文收起
           endorsenum: 99, //点赞数
-          iscomment:false, //评论
+          iscomment: false, //评论
           islove: false, //是否喜欢
           isapprove: true, //赞同
           isnoapprove: true,
@@ -209,7 +211,7 @@ export default {
             {
               sontime: "07-26",
               soncontent: "你好呀",
-              zannum:0
+              zannum: 0,
             },
           ],
         },
@@ -220,7 +222,7 @@ export default {
             "  FIG（国际体操联合会）从昨晚男子体操全能决赛后至今，其网络社交账号（INS为主）持续遭到了海量的辱骂刷屏，今天上午更是不堪其扰而关闭了INS的帖子评论功能。在今晚早些时候，FIG史无前例地公针对桥本大辉男子全能跳马争议成绩，给出了完整打分解释声明。这也是FIG第一次公布正式比赛的E分完成分的详细打分大致翻译：桥本大辉在7月28日的男子全能跳马比赛中获得的分数引起了众多评论，国际体操联合会(FIG)想要确认这次比赛的裁判是公正和准确的。国际体操联合会进行的赛后分析表明，裁判小组采用了现行的打分规则。桥本大辉本次跳马动作确认为5.6分的D分难度分关于E分完成分，评审裁判按照满分10分从以下扣分点中扣除：0.1 第一阶段轻微分腿（上马分腿）0.1 身体轻微弯曲（腾空屈髋）0.1 第二阶段轻微分腿0.1 落地准备不足  （落地弯腰，展体不足）0.1 落地不完全转体（没有转正，度数不足）0.3 落地一大步（最大扣分）P分罚分：0.1 右脚出界罚分完成分10-0.8=9.2分。最终得分：5.6+9.2-0.1=14.7分综上，FIG可以确认：桥本大辉的14.7分得分是正确的，符合打分规则。最终排名亦是如此。FIG在此感谢所有运动员在比赛展现的出色发挥和运动精神。至此，官方解答已出，尘埃落定。这也是据我所知，体操项目到现在为止，第一次官方针对所谓的“争议”单独发公告。无论是普通观众还是体操名将针对打分的质疑，都可以有所停歇了。感谢认真研究过规则的体操迷们，在贴吧、微博、知乎积极发帖科普做出的辛苦工作。附原提问回答：2020 东京奥运竞技体操男子组个人全能决赛肖若腾遗憾摘银，如何评价本场比赛？目前该回答已无法阅读，笔者在此附上全文备份：结论放前面：1、桥本大辉的跳马打分基本没有问题。2、“动作结束后没有向裁判示意扣0.3”这一条是清清楚楚写在规则明文里的，之前大型比赛里也有过其他国选手被判罚的先例。根据NBC电视台转播的镜头来看，肖若腾确实出现了忘记向裁判示意的情况。（详细分析请看下文）强调一下：体操项目不是只看落地，还要看空中姿态、动作质量。 首先要知道体操的总分构成，总分=D分难度分+E分完成分-P分罚分。出界属于罚分范畴。落地一大步属于完成分范畴。然后跳马怎么看？跳马分为第一腾空+第二腾空+落地，主要由这三个方面考察，落地也分落地时的展体姿态、是否转足角度、落地是否稳定等等。一般观众只会看落地站的稳不稳，有没有出界，很容易忽视前面的扣分点，从而被误导。先发一下最新周期版本下的跳马罚分P分的扣分规则：大致翻译：桥本大辉在7月28日的男子全能跳马比赛中获得的分数引起了众多评论，国际体操联合会(FIG)想要确认这次比赛的裁判是公正和准确的。国际体操联合会进行的赛后分析表明，裁判小组采用了现行的打分规则。桥本大辉本次跳马动作确认为5.6分的D分难度分关于E分完成分，评审裁判按照满分10分从以下扣分点中扣除：0.1 第一阶段轻微分腿（上马分腿）0.1 身体轻微弯曲（腾空屈髋）0.1 第二阶段轻微分腿0.1 落地准备不足  （落地弯腰，展体不足）0.1 落地不完全转体（没有转正，度数不足）0.3 落地一大步（最大扣分）P分罚分：0.1 右脚出界罚分完成分10-0.8=9.2分。最终得分：5.6+9.2-0.1=14.7分综上，FIG可以确认：桥本大辉的14.7分得分是正确的，符合打分规则。最终排名亦是如此。FIG在此感谢所有运动员在比赛展现的出色发挥和运动精神。至此，官方解答已出，尘埃落定。这也是据我所知，体操项目到现在为止，第一次官方针对所谓的“争议”单独发公告。无论是普通观众还是体操名将针对打分的质疑，都可以有所停歇了。感谢认真研究过规则的体操迷们，在贴吧、微博、知乎积极发帖科普做出的辛苦工作。附原提问回答：2020 东京奥运竞技体操男子组个人全能决赛肖若腾遗憾摘银，如何评价本场比赛？目前该回答已无法阅读，笔者在此附上全文备份：结论放前面：1、桥本大辉的跳马打分基本没有问题。2、“动作结束后没有向裁判示意扣0.3”这一条是清清楚楚写在规则明文里的，之前大型比赛里也有过其他国选手被判罚的先例。根据NBC电视台转播的镜头来看，肖若腾确实出现了忘记向裁判示意的情况。（详细分析请看下文）强调一下：体操项目不是只看落地，还要看空中姿态、动作质量。 首先要知道体操的总分构成，总分=D分难度分+E分完成分-P分罚分。出界属于罚分范畴。落地一大步属于完成分范畴。然后跳马怎么看？跳马分为第一腾空+第二腾空+落地，主要由这三个方面考察，落地也分落地时的展体姿态、是否转足角度、落地是否稳定等等。一般观众只会看落地站的稳不稳，有没有出界，很容易忽视前面的扣分点，从而被误导。先发一下最新周期版本下的跳马罚分P分的扣分规则：",
           isflag: true, //阅读全文收起
           endorsenum: 99, //点赞数
-          iscomment:false, //评论
+          iscomment: false, //评论
           islove: false, //是否喜欢
           isapprove: true, //赞同
           isnoapprove: true,
@@ -228,28 +230,18 @@ export default {
             {
               sontime: "07-26",
               soncontent: "你好呀",
-              zannum:0
+              zannum: 0,
             },
           ],
         },
       ],
-      list2: [],
+      listtwo: [],
     };
   },
   computed: {},
-  mounted(){
-    window.addEventListener("scroll", this.handlescrollTop);
-  },
+  mounted() {},
   created() {
-    this.$axios
-      .get("http://localhost:3000/list")
-      .then((res) => {
-        this.list2 = res.data;
-        console.log(this.list2);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.init();
   },
   /* 展开全文收起 */
   filters: {
@@ -262,88 +254,160 @@ export default {
         return value;
       }
     },
-    getnewtime(ms){
+    //时间差
+    getnewtime(ms) {
       let d = new Date().getTime();
-      let data =(d -ms) / 1000 /60;
-      let str = '';
-      if(data <=1){
+      let data = (d - ms) / 1000 / 60;
+      let str = "";
+      if (data <= 1) {
         str = "刚刚";
-      }else if (data < 5){
-        str = "一分钟前"
-      }else if(data < 10){
-        str = "5分钟前"
+      } else if (data < 5) {
+        str = "一分钟前";
+      } else if (data < 10) {
+        str = "5分钟前";
       }
       return str;
-    }
-
+    },
   },
   methods: {
+    //初始化
+    init() {
+      this.$axios
+        .get("http://localhost:3000/list")
+        .then((res) => {
+          this.listtwo = res.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     //点赞按钮
     approvebtn(key) {
-      if (this.list[key].isapprove) {
-        this.list[key].isnoapprove = true;
-        this.list[key].isapprove = false;
-        this.list[key].endorsenum++;
-        console.log(this.list[key].isapprove);
+      if (this.listtwo[key].isapprove) {
+        this.$axios
+          .patch("http://localhost:3000/list/" + (key + 1), {
+            isnoapprove: true,
+            isapprove: false,
+            endorsenum: this.list[key].endorsenum++,
+          })
+          .then(() => {
+            this.init();
+          });
       } else {
-        this.list[key].isapprove = true;
-        this.list[key].endorsenum--;
-        console.log(this.list[key].isapprove);
+        this.$axios
+          .patch("http://localhost:3000/list/" + (key + 1), {
+            isapprove: true,
+            endorsenum: this.list[key].endorsenum--,
+          })
+          .then(() => {
+            this.init();
+          });
       }
     },
     //取消点赞
     noapprovebtn(key) {
-      if (this.list[key].isapprove == false) {
-        this.list[key].endorsenum--;
-        this.list[key].isapprove = true;
-        this.list[key].isnoapprove = false;
-      } else if (this.list[key].isnoapprove == false) {
-        this.list[key].isnoapprove = true;
-      } else if (this.list[key].isnoapprove == true) {
-        this.list[key].isnoapprove = false;
+      if (this.listtwo[key].isapprove == false) {
+        this.$axios
+          .patch("http://localhost:3000/list/" + (key + 1), {
+            isnoapprove: false,
+            isapprove: true,
+            endorsenum: this.list[key].endorsenum--,
+          })
+          .then(() => {
+            this.init();
+          });
+      } else if (this.listtwo[key].isnoapprove == false) {
+        this.$axios
+          .patch("http://localhost:3000/list/" + (key + 1), {
+            isnoapprove: true,
+          })
+          .then(() => {
+            this.init();
+          });
+      } else if (this.listtwo[key].isnoapprove == true) {
+        this.$axios
+          .patch("http://localhost:3000/list/" + (key + 1), {
+            isnoapprove: false,
+          })
+          .then(() => {
+            this.init();
+          });
       }
     },
     //是否喜欢
     islovebtn(key) {
-      if (this.list[key].islove == false) {
-        this.list[key].islove = true;
+      if (this.listtwo[key].islove) {
+        this.$axios
+          .patch("http://localhost:3000/list/" + (key + 1), {
+            islove: false,
+          })
+          .then(() => {
+            this.init();
+          });
       } else {
-        this.list[key].islove = false;
+        this.$axios
+          .patch("http://localhost:3000/list/" + (key + 1), {
+            islove: true,
+          })
+          .then(() => {
+            this.init();
+          });
       }
     },
     //展开评论
-    commentishide(key){
-      if(this.list[key].iscomment == false){
-        this.list[key].iscomment = true
-      }else {
-        this.list[key].iscomment = false
+    commentishide(key) {
+      if (this.listtwo[key].iscomment == false) {
+        this.$axios
+          .patch("http://localhost:3000/list/" + (key + 1), {
+            iscomment: true,
+          })
+          .then(() => {
+            this.init();
+          });
+      } else {
+        this.$axios
+          .patch("http://localhost:3000/list/" + (key + 1), {
+            iscomment: false,
+          })
+          .then(() => {
+            this.init();
+          });
       }
     },
     //展开
     isSpread(key) {
-      this.list[key].isflag = false;
+      this.$axios
+        .patch("http://localhost:3000/list/" + (key + 1), {
+          isflag: false,
+        })
+        .then(() => {
+          this.init();
+        });
     },
     noSpread(key) {
-      this.list[key].isflag = true;
+      this.$axios
+        .patch("http://localhost:3000/list/" + (key + 1), {
+          isflag: true,
+        })
+        .then(() => {
+          this.init();
+        });
     },
     //添加评论
     pushcommlist(key) {
-      this.list[key].commentlist.push({soncontent:this.commentcontent,sontime:'08-02'});
-      this.commentcontent = ''
+/*        this.listtwo[key].commentlist.push({
+        soncontent: this.commentcontent,
+        sontime:'08-02'
+      });  */
+      this.$axios.post("http://localhost:3000/list/?id="+ (key + 1),{
+        /* commentlist:{soncontent:'11',sontime:'12112',zannum:'0'} */
+      }).then(() => {
+        console.log("21121");
+      })
+
+      this.commentcontent = "";
     },
-    /* 吸底 */
-    handlescrollTop(){
-      /* const that = this; */
-      var scrollTop =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop;
-      var offsetTop = this.$refs.toplength.scrollTop
-      var offsetHeight = this.$refs.toplength.offsetHeight
-      if(scrollTop < offsetTop + offsetHeight)
-      console.log("offsetTop:" + this.offsetTop + "," + this.offsetHeight);
-    }
-  }
+  },
 };
 </script>
 
